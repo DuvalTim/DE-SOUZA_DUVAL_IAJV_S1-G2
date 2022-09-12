@@ -1,36 +1,31 @@
 #pragma once
 
-#include <iostream>
-
-/// <summary>
-/// Liste des preconditions
-/// </summary>
-enum Preconditions {
-	AvoirDuBois,
-	AvoirSoif,
-	AvoirUneHache
-};
+#include <vector>
+#include "Precondition.h"
 
 /// <summary>
 /// Liste des effets
 /// </summary>
-enum Effets {
-	GagnerDuBois,
-	GagnerDeLEau,
-	GagnerUneHache
+enum Effet {
+	GagnerDeLaForme,
+	GagnerDuGlucose,
+	GagnerUnRepas
 };
 
 class Action
 {
 private:
 	std::string Name;
-	Effets Effect;
-	Preconditions Precondition;
+	std::vector<Effet> Effets;
+	std::vector<Precondition> Preconditions;
 	int Cout;
 public:
 	Action(const std::string& _name, const int& _cout = 1);
-	void AddPrecondition(const Preconditions& _precondition);
-	void AddEffect(const Effets& _effet);
-	void ShowAction() const;
+	void AddPrecondition(const Precondition _precondition);
+	void AddEffect(const Effet _effet);
+	friend std::ostream& operator<<(std::ostream& os, const Action& action);
+	std::vector<Precondition> GetPreconditions() const {
+		return Preconditions;
+	}
 };
 

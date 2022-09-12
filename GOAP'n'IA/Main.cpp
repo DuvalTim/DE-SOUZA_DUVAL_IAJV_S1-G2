@@ -1,15 +1,45 @@
-#include "Action.h"
-#include <iostream>
+#include "GameState.h"
 
 #define UPDATE_TIME 5
 
 /// <summary>
+/// Cree les actions
+/// </summary>
+void CreateAction()
+{
+    /*
+    Action* reviser = new Action("Reviser");
+    reviser ->AddEffect(Effet::GagnerDeLaForme);
+    reviser ->AddEffect(Effet::GagnerDuGlucose);
+    reviser ->AddPrecondition(Precondition(Precondition::PreconditionList::AvoirDormis, 5, ));
+    std::cout << *reviser << std::endl;
+    delete reviser;*/
+}
+
+/// <summary>
+/// Execute au demarrage
+/// </summary>
+void Start(GameState& gameState)
+{
+
+}
+
+/// <summary>
+/// Boucle gameplay
+/// </summary>
+void Update(GameState& gameState)
+{
+    gameState.Run();
+}
+
+
+/// <summary>
 /// Boucle principale, lance le start puis les update
 /// </summary>
-void Run()
+void Run(GameState& gameState)
 {
     time_t t1, t2;
-    Start();
+    Start(gameState);
     t1 = time(NULL);
 
     for (;;)        //probleme de boucle infinie
@@ -19,44 +49,17 @@ void Run()
         if (difftime(t2, t1) == UPDATE_TIME) // exemple pour 5 secondes
         {
             t1 = t2;
-            Update();
+            Update(gameState);
             //std::cout << "execution de la tache" << std::endl;
         }
     }
 }
 
 
-/// <summary>
-/// Cree les actions
-/// </summary>
-void CreateAction()
-{
-    Action* couperDuBois = new Action("Couper du bois");
-    couperDuBois->AddEffect(Effets::GagnerDuBois);
-    couperDuBois->AddPrecondition(Preconditions::AvoirUneHache);
-    couperDuBois->ShowAction();
-    delete couperDuBois;
-}
-
-/// <summary>
-/// Execute au demarrage
-/// </summary>
-void Start() 
-{
-    CreateAction();
-}
-
-/// <summary>
-/// Boucle gameplay
-/// </summary>
-void Update() 
-{
-    
-}
 
 
 int main(std::string args[]) {
-    Run();
-	std::cout << "ok" << std::endl;
+    GameState gameState = GameState(10, 10, 10);
+    Run(gameState);
 	return 0;
 }
