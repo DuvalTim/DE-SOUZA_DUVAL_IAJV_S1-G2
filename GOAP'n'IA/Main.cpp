@@ -60,7 +60,7 @@ void Run(GameState& gameState)
 
 
 int main(std::string args[]) {
-    GameState gameState = GameState(10, 10, 10);
+    GameState gameState = GameState(5, 5, 5, 5, 5);
     Run(gameState);
 	return 0;
 }

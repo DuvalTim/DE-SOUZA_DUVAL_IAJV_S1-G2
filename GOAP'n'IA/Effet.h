@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <functional>
 
 class Effet
 {
@@ -14,7 +15,11 @@ public:
 		GagnerDuGlucose,
 		GagnerUnRepas,
 		GagnerDeLArgent,
-		GagnerDuPlaisir
+		GagnerDuPlaisir,
+		PerteForme,
+		PerteGlucose,
+		PerteArgent,
+		PerteRepas
 	};
 
 	Effet(const EffetListe& _effet , uint16_t* _valueToDecrement, const uint16_t& _decrementStep)
@@ -22,6 +27,7 @@ public:
 		CurrentEffet = _effet;
 		ValueToDecrement = _valueToDecrement;
 		DecrementStep = _decrementStep;
+		OnActionCompleted = [](){};
 	}
 
 	void OnActionSuccess()
@@ -30,7 +36,17 @@ public:
 		std::cout << *ValueToDecrement << std::endl;
 	}
 
-	int OnActionSuccess(int x, int y, int (*function)(int, int)) { return function(x, y); }
+	//void OnActionSuccess()
+	//{
+	//	OnActionCompleted();
+	//}
+
+	//void AddActionEvent(std::function<void()> _onActionCompleted)
+	//{
+	//	OnActionCompleted = _onActionCompleted;
+	//}
+
+	//int OnActionSuccess(int x, int y, int (*function)(int, int)) { return function(x, y); }
 
 	friend std::ostream& operator<<(std::ostream& os, const Effet& effet);
 
@@ -38,4 +54,6 @@ private:
 	EffetListe CurrentEffet;
 	uint16_t* ValueToDecrement;
 	uint16_t DecrementStep;
+
+	std::function<void()> OnActionCompleted;
 };
