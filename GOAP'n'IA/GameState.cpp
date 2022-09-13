@@ -3,10 +3,9 @@
 void GameState::CreateActions()
 {
 	Action reviser = Action("Reviser");
-	reviser.AddEffect(Effet::GagnerDeLaForme);
-	reviser.AddEffect(Effet::GagnerDuGlucose);
-	Precondition prec = Precondition(Precondition::PreconditionList::AvoirFaim, 1, &HungryValue);
 
+	Precondition prec = Precondition(Precondition::PreconditionList::AvoirDormis, 1, &HungryValue);
+	Effet eff = Effet(Effet::EffetListe::GagnerUnRepas, &MoneyValue, 1);
 	/*
 	prec.IsValid<uint16_t>([test]() mutable
 		{
@@ -16,8 +15,29 @@ void GameState::CreateActions()
 	*/
 
 	reviser.AddPrecondition(prec);
-	std::cout << reviser << std::endl;
+	reviser.AddEffect(eff);
 	Actions.push_back(reviser);
+
+	reviser = Action("Reviser");
+
+	prec = Precondition(Precondition::PreconditionList::AvoirDormis, 1, &HungryValue);
+	eff = Effet(Effet::EffetListe::GagnerUnRepas, &MoneyValue, 1);
+	reviser.AddPrecondition(prec);
+	reviser.AddEffect(eff);
+	Actions.push_back(reviser);
+	
+	/*
+	prec.IsValid<uint16_t>([test]() mutable
+		{
+			return *test > 2;
+		}
+	);
+	*/
+
+	reviser.AddPrecondition(prec);
+	reviser.AddEffect(eff);
+	Actions.push_back(reviser);
+
 }
 
 GameState::GameState(const uint16_t& _hungryValue, const uint16_t& _sleepValue, const uint16_t& _moneyValue)
@@ -48,10 +68,12 @@ void GameState::Run()
 		if (i == precs.size())
 		{
 			std::cout << "Action valid :" << curr.GetName() << std::endl;
+			curr.OnActionValid();
+			break;
 		}
 		else 
 		{
-			std::cout << "Value invalid" << std::endl;
+			std::cout << "Action invalid for :" << curr.GetName() << std::endl;
 		}
 	}
 }

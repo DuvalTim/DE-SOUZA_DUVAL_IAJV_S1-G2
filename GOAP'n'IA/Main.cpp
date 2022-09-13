@@ -1,6 +1,6 @@
 #include "GameState.h"
 
-#define UPDATE_TIME 2
+#define UPDATE_TIME 1
 
 /// <summary>
 /// Cree les actions

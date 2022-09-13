@@ -19,6 +19,14 @@ void Action::AddEffect(const Effet _effet)
 	this->Effets.push_back(_effet);
 }
 
+void Action::OnActionValid()
+{
+	for (Effet effet : Effets)
+	{
+		effet.OnActionSuccess();
+	}
+}
+
 
 std::ostream& operator<<(std::ostream& os, const Action& action)
 {

@@ -13,7 +13,8 @@ public:
 	enum PreconditionList {
 		AvoirDormis,
 		AvoirFaim,
-		AvoirDeLaNourriture
+		AvoirDeLaNourriture,
+		AvoirDeLArgent
 	};
 
 	bool IsTrue() const
