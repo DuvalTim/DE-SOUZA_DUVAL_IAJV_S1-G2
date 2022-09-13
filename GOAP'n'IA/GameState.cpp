@@ -2,8 +2,9 @@
 
 void GameState::CreateActions()
 {
-	
-	Action travailler = Action("Travailler");
+	Actions.reserve(5);
+
+	Action travailler = Action("Travailler", 2);
 
     Precondition prec = Precondition(Precondition::PreconditionList::AvoirDormis, 1, &SleepValue);
     Precondition prec2 = Precondition(Precondition::PreconditionList::AvoirFaim, 1, &HungryValue);
@@ -20,7 +21,7 @@ void GameState::CreateActions()
 	
 	//========================================
 
-    Action manger = Action("Manger");
+    Action manger = Action("Manger", 1);
 
     prec = Precondition(Precondition::PreconditionList::AvoirDeLaNourriture, 1, &RepasValue);
     eff = Effet(Effet::EffetListe::GagnerDuGlucose, &HungryValue, 1);
@@ -32,7 +33,7 @@ void GameState::CreateActions()
 
     //========================================
 
-    Action dormir = Action("Dormir");
+    Action dormir = Action("Dormir", 3);
 
     prec = Precondition(Precondition::PreconditionList::AvoirFaim, 1, &HungryValue);
     eff = Effet(Effet::EffetListe::GagnerDeLaForme, &SleepValue, 1);
@@ -42,7 +43,7 @@ void GameState::CreateActions()
 
     //========================================
 
-    Action courses = Action("Courses");
+    Action courses = Action("Courses", 1);
 
     prec = Precondition(Precondition::PreconditionList::AvoirDeLArgent, 1, &MoneyValue);
     eff = Effet(Effet::EffetListe::GagnerUnRepas, &RepasValue, 1);
@@ -54,7 +55,7 @@ void GameState::CreateActions()
 
     //========================================
 
-    Action loisir = Action("Loisir");
+    Action loisir = Action("Loisir", 9);
 
     prec = Precondition(Precondition::PreconditionList::AvoirDeLArgent, 1, &MoneyValue);
     eff = Effet(Effet::EffetListe::GagnerDuPlaisir, &FunValue, 1);
@@ -116,6 +117,8 @@ void GameState::Run()
 	assert(HungryValue >= 0);
 	assert(SleepValue >= 0);
 	assert(MoneyValue >= 0);
+	std::vector<Action> realisablesActions = std::vector<Action>();
+	Action* finalAction = nullptr;
 	for (Action curr : Actions)
 	{
 		std::vector<Precondition> precs = curr.GetPreconditions();
@@ -129,13 +132,36 @@ void GameState::Run()
 		}
 		if (i == precs.size())
 		{
-			std::cout << "Action valid :" << curr.GetName() << std::endl;
-			curr.OnActionValid();
-			break;
+			std::cout << "Action realisable :" << curr.GetName() << std::endl;
+			//curr.OnActionValid();
+			realisablesActions.push_back(curr);
+			//break;
 		}
 		else 
 		{
 			std::cout << "Action invalid for :" << curr.GetName() << std::endl;
 		}
+	}
+	for (Action curr : realisablesActions) 
+	{
+		if (finalAction == nullptr)
+		{
+			finalAction = new Action(curr);
+			//*finalAction = curr;
+		}
+		else
+		{
+			if (curr.GetCout() < finalAction->GetCout())
+			{
+				finalAction = new Action(curr);
+				//*finalAction = curr;
+			}
+		}
+	}
+	if (finalAction != nullptr)
+	{
+		std::cout << "Action faite :" << finalAction->GetName() << std::endl;
+		finalAction->OnActionValid();
+		delete finalAction;
 	}
 }

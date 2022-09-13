@@ -24,5 +24,9 @@ public:
 	std::string GetName() const {
 		return Name;
 	}
+	int GetCout() const
+	{
+		return Cout;
+	}
 };
 

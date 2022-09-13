@@ -1,6 +1,5 @@
 #pragma once
 #include <iostream>
-
 #include <functional>
 
 class Precondition
@@ -17,18 +16,21 @@ public:
 		AvoirDeLArgent
 	};
 
+	/// <summary>
+	/// Return true quand la valeur de l attribut associe est superieur a la valeur minimale de la precondition
+	/// </summary>
+	/// <returns></returns>
 	bool IsTrue() const
 	{
 		return *AttributeLinked >= MinValue;
 	}
 
-	//template <typename T>
-	//bool IsValid(std::function<bool()> function) const {
-	//	return function(x, y);
-	//}
-
-	int operation(int x, int y, int (*function)(int, int)) { return function(x, y); }
-
+	/// <summary>
+	/// Creation d un precondition
+	/// </summary>
+	/// <param name="_preconditionList">Precondition parmi la liste</param>
+	/// <param name="_minValue">Valeur minimale a laquelle l attribut linked est associee</param>
+	/// <param name="_attributeLinked">L attribut associe a la precondition</param>
 	Precondition(const PreconditionList& _preconditionList, const uint16_t& _minValue, uint16_t* _attributeLinked)
 	{
 		CurrentPrecondition = _preconditionList;
@@ -39,9 +41,20 @@ public:
 	friend std::ostream& operator<<(std::ostream& os, const Precondition& precondition);
 
 private:
+
+	/// <summary>
+	/// Precondition actuelle parmi la liste
+	/// </summary>
 	PreconditionList CurrentPrecondition;
+
+	/// <summary>
+	/// Valeur minimale a laquelle l attribut linked est associee
+	/// </summary>
 	uint16_t MinValue;
+
+	/// <summary>
+	/// L attribut associe a la precondition
+	/// </summary>
 	uint16_t* AttributeLinked;
-	std::function<bool()> IsValid;
 };
 
