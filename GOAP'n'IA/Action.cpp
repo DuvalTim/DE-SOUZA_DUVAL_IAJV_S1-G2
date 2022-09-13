@@ -28,7 +28,7 @@ std::ostream& operator<<(std::ostream& os, const Action& action)
 	{
 		os << " " << prec;
 	}
-	os << ", Effect(s) :";
+	os << ", Effet(s) :";
 	for (Effet eff : action.Effets)
 	{
 		os << " " << eff;

@@ -1,10 +1,31 @@
 #include "GameState.h"
 
+void GameState::CreateActions()
+{
+	Action reviser = Action("Reviser");
+	reviser.AddEffect(Effet::GagnerDeLaForme);
+	reviser.AddEffect(Effet::GagnerDuGlucose);
+	Precondition prec = Precondition(Precondition::PreconditionList::AvoirFaim, 1, &HungryValue);
+
+	/*
+	prec.IsValid<uint16_t>([test]() mutable
+		{
+			return *test > 2;
+		}
+	);
+	*/
+
+	reviser.AddPrecondition(prec);
+	std::cout << reviser << std::endl;
+	Actions.push_back(reviser);
+}
+
 GameState::GameState(const uint16_t& _hungryValue, const uint16_t& _sleepValue, const uint16_t& _moneyValue)
 {
 	this->HungryValue = _hungryValue;
 	this->SleepValue = _sleepValue;
 	this->MoneyValue = _moneyValue;
+	CreateActions();
 }
 
 
@@ -26,7 +47,7 @@ void GameState::Run()
 		}
 		if (i == precs.size())
 		{
-			std::cout << "Value valid" << std::endl;
+			std::cout << "Action valid :" << curr.GetName() << std::endl;
 		}
 		else 
 		{

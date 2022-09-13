@@ -3,14 +3,6 @@
 #include <vector>
 #include "Precondition.h"
 
-/// <summary>
-/// Liste des effets
-/// </summary>
-enum Effet {
-	GagnerDeLaForme,
-	GagnerDuGlucose,
-	GagnerUnRepas
-};
 
 class Action
 {
@@ -26,6 +18,9 @@ public:
 	friend std::ostream& operator<<(std::ostream& os, const Action& action);
 	std::vector<Precondition> GetPreconditions() const {
 		return Preconditions;
+	}
+	std::string GetName() const {
+		return Name;
 	}
 };
 

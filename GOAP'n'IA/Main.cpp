@@ -1,6 +1,6 @@
 #include "GameState.h"
 
-#define UPDATE_TIME 5
+#define UPDATE_TIME 2
 
 /// <summary>
 /// Cree les actions
@@ -21,7 +21,7 @@ void CreateAction()
 /// </summary>
 void Start(GameState& gameState)
 {
-
+    std::cout << "Start" << std::endl;
 }
 
 /// <summary>
@@ -29,6 +29,7 @@ void Start(GameState& gameState)
 /// </summary>
 void Update(GameState& gameState)
 {
+    std::cout << "Update" << std::endl;
     gameState.Run();
 }
 
