@@ -1,6 +1,5 @@
 #pragma once
 #include <iostream>
-#include <functional>
 
 class Precondition
 {
@@ -9,7 +8,7 @@ public:
 	/// <summary>
 	/// Liste des preconditions
 	/// </summary>
-	enum PreconditionList {
+	enum class PreconditionList {
 		AvoirDormis,
 		AvoirFaim,
 		AvoirDeLaNourriture,
@@ -38,6 +37,12 @@ public:
 		AttributeLinked = _attributeLinked;
 	}
 
+	/// <summary>
+	/// Operateur ostream pour lire les donnes de la precondition
+	/// </summary>
+	/// <param name="os">le stream de sortie</param>
+	/// <param name="action">la precondition a lire</param>
+	/// <returns>le stream avec les donnes de la precondition ajoutes</returns>
 	friend std::ostream& operator<<(std::ostream& os, const Precondition& precondition);
 
 private:

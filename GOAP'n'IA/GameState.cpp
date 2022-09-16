@@ -2,103 +2,67 @@
 
 void GameState::CreateActions()
 {
-	Actions.reserve(5);
+	GoalAction = new Action("Travailler", 2);
 
-	Action travailler = Action("Travailler", 2);
+	Precondition prec = Precondition(Precondition::PreconditionList::AvoirDormis, 1, &SleepValue);
+	Precondition prec2 = Precondition(Precondition::PreconditionList::AvoirFaim, 1, &HungryValue);
+	Effet eff = Effet(Effet::EffetListe::GagnerDeLArgent, &MoneyValue, 1);
+	Effet eff2 = Effet(Effet::EffetListe::PerteForme, &SleepValue, -1);
+	Effet eff3 = Effet(Effet::EffetListe::PerteGlucose, &HungryValue, -1);
 
-    Precondition prec = Precondition(Precondition::PreconditionList::AvoirDormis, 1, &SleepValue);
-    Precondition prec2 = Precondition(Precondition::PreconditionList::AvoirFaim, 1, &HungryValue);
-    Effet eff = Effet(Effet::EffetListe::GagnerDeLArgent, &MoneyValue, 1);
-    Effet eff2 = Effet(Effet::EffetListe::PerteForme, &SleepValue, -1);
-    Effet eff3 = Effet(Effet::EffetListe::PerteGlucose, &HungryValue, -1);
+	GoalAction->AddPrecondition(prec);
+	GoalAction->AddPrecondition(prec2);
+	GoalAction->AddEffect(eff);
+	GoalAction->AddEffect(eff2);
+	GoalAction->AddEffect(eff3);
 
-	travailler.AddPrecondition(prec);
-	travailler.AddPrecondition(prec2);
-	travailler.AddEffect(eff);
-	travailler.AddEffect(eff2);
-	travailler.AddEffect(eff3);
-	Actions.push_back(travailler);
-	
 	//========================================
 
-    Action manger = Action("Manger", 1);
+	Action manger = Action("Manger", 1);
 
-    prec = Precondition(Precondition::PreconditionList::AvoirDeLaNourriture, 1, &RepasValue);
-    eff = Effet(Effet::EffetListe::GagnerDuGlucose, &HungryValue, 1);
+	prec = Precondition(Precondition::PreconditionList::AvoirDeLaNourriture, 1, &RepasValue);
+	eff = Effet(Effet::EffetListe::GagnerDuGlucose, &HungryValue, 1);
 	eff2 = Effet(Effet::EffetListe::PerteRepas, &RepasValue, -1);
-    manger.AddPrecondition(prec);
-    manger.AddEffect(eff);
-    manger.AddEffect(eff2);
-    Actions.push_back(manger);
+	manger.AddPrecondition(prec);
+	manger.AddEffect(eff);
+	manger.AddEffect(eff2);
 
-    //========================================
+	//========================================
 
-    Action dormir = Action("Dormir", 3);
+	Action dormir = Action("Dormir", 3);
 
-    prec = Precondition(Precondition::PreconditionList::AvoirFaim, 1, &HungryValue);
-    eff = Effet(Effet::EffetListe::GagnerDeLaForme, &SleepValue, 1);
-    dormir.AddPrecondition(prec);
-    dormir.AddEffect(eff);
-    Actions.push_back(dormir);
+	prec = Precondition(Precondition::PreconditionList::AvoirFaim, 1, &HungryValue);
+	eff = Effet(Effet::EffetListe::GagnerDeLaForme, &SleepValue, 1);
+	dormir.AddPrecondition(prec);
+	dormir.AddEffect(eff);
 
-    //========================================
+	//========================================
 
-    Action courses = Action("Courses", 1);
+	Action courses = Action("Courses", 1);
 
-    prec = Precondition(Precondition::PreconditionList::AvoirDeLArgent, 1, &MoneyValue);
-    eff = Effet(Effet::EffetListe::GagnerUnRepas, &RepasValue, 1);
+	prec = Precondition(Precondition::PreconditionList::AvoirDeLArgent, 1, &MoneyValue);
+	eff = Effet(Effet::EffetListe::GagnerUnRepas, &RepasValue, 1);
 	eff2 = Effet(Effet::EffetListe::PerteArgent, &MoneyValue, -1);
-    courses.AddPrecondition(prec);
-    courses.AddEffect(eff);
-    courses.AddEffect(eff2);
-    Actions.push_back(courses);
+	courses.AddPrecondition(prec);
+	courses.AddEffect(eff);
+	courses.AddEffect(eff2);
 
-    //========================================
+	//========================================
 
-    Action loisir = Action("Loisir", 9);
+	Action loisir = Action("Loisir", 9);
 
-    prec = Precondition(Precondition::PreconditionList::AvoirDeLArgent, 1, &MoneyValue);
-    eff = Effet(Effet::EffetListe::GagnerDuPlaisir, &FunValue, 1);
+	prec = Precondition(Precondition::PreconditionList::AvoirDeLArgent, 1, &MoneyValue);
+	eff = Effet(Effet::EffetListe::GagnerDuPlaisir, &FunValue, 1);
 	eff2 = Effet(Effet::EffetListe::PerteArgent, &MoneyValue, -1);
-    loisir.AddPrecondition(prec);
-    loisir.AddEffect(eff);
-    loisir.AddEffect(eff2);
-    Actions.push_back(loisir);
+	loisir.AddPrecondition(prec);
+	loisir.AddEffect(eff);
+	loisir.AddEffect(eff2);
 
-    //========================================
-	
+	//========================================
 
-	/*
-	Action reviser = Action("Reviser");
-
-	Precondition prec = Precondition(Precondition::PreconditionList::AvoirDormis, 1, &HungryValue);
-	Effet eff = Effet(Effet::EffetListe::GagnerUnRepas, &MoneyValue, 1);
-
-
-	
-	prec.IsValid<uint16_t>([test]() mutable
-		{
-			return *test > 2;
-		}
-	);
-	uint16_t* Hungry = &HungryValue;
-	uint16_t* Money = &MoneyValue;
-	eff.AddActionEvent(
-		[&Hungry, &Money]()
-		{
-			std::cout << Hungry << std::endl;
-			Hungry--;
-			Money++;
-			std::cout << "Hungry :" << Hungry << std::endl;
-			std::cout << "Money :" << Money << std::endl;
-		}
-	);
-
-	reviser.AddPrecondition(prec);
-	reviser.AddEffect(eff);
-	Actions.push_back(reviser);
-	*/
-
+	manger.AddPreviousAction(courses);
+	GoalAction->AddPreviousAction(manger);
+	GoalAction->AddPreviousAction(dormir);
 }
 
 GameState::GameState(const uint16_t& _hungryValue, const uint16_t& _sleepValue, const uint16_t& _moneyValue, const uint16_t& _repasValue, const uint16_t& _funValue)
@@ -117,51 +81,104 @@ void GameState::Run()
 	assert(HungryValue >= 0);
 	assert(SleepValue >= 0);
 	assert(MoneyValue >= 0);
-	std::vector<Action> realisablesActions = std::vector<Action>();
-	Action* finalAction = nullptr;
-	for (Action curr : Actions)
+
+	// declaration
+	std::vector<int>* Couts = new std::vector<int>();
+	std::vector<std::vector<Action>>* Actions = new std::vector<std::vector<Action>>();
+
+	// calcul des couts
+	GoalAction->CalculateCost(Couts, Actions, *Couts, *Actions, 0);
+
+	// recuperation des valeurs
+	std::vector<int> coutsObtenus = *Couts;
+	std::vector<std::vector<Action>> actionCombinaisons = *Actions;
+
+	if (actionCombinaisons.size() > 0)
 	{
-		std::vector<Precondition> precs = curr.GetPreconditions();
-		size_t i = 0;
-		for (i; i < precs.size(); i++)
+		std::cout << "Liste des combinaisons possibles :" << std::endl;
+		size_t moinsCouteuseIndex = 0;
+
+		// recherche action moins couteuse plus affichage
+		for (size_t i = 0; i < actionCombinaisons.size() ; i++)
 		{
-			if (!precs[i].IsTrue())
+			std::cout << "Cout : " << coutsObtenus[i] << ", actions : ";
+			for (Action oneAction : actionCombinaisons[i])
+			{
+				std::cout << oneAction.GetName() << " ";
+			}
+			std::cout << std::endl;
+
+			if (i != 0)
+			{
+				if (coutsObtenus[i] < coutsObtenus[moinsCouteuseIndex]) // si nouveau cout inferieur a l ancien
+				{
+					moinsCouteuseIndex = i;
+				}
+				else if (coutsObtenus[i] == coutsObtenus[moinsCouteuseIndex]) // si cout egal mais moins d action a effectuer
+				{
+					if (actionCombinaisons[i].size() < actionCombinaisons[moinsCouteuseIndex].size())
+					{
+						moinsCouteuseIndex = i;
+					}
+				}
+			}
+		}
+		
+		// lancement serie d action moins couteuse
+		std::vector<Action> actionsAEffectuer = actionCombinaisons[moinsCouteuseIndex];
+		int i = actionsAEffectuer.size() ;
+		for (;;)
+		{
+			i--;
+			if (i < 0)
 			{
 				break;
 			}
-		}
-		if (i == precs.size())
-		{
-			std::cout << "Action realisable :" << curr.GetName() << std::endl;
-			//curr.OnActionValid();
-			realisablesActions.push_back(curr);
-			//break;
-		}
-		else 
-		{
-			std::cout << "Action invalid for :" << curr.GetName() << std::endl;
-		}
-	}
-	for (Action curr : realisablesActions) 
-	{
-		if (finalAction == nullptr)
-		{
-			finalAction = new Action(curr);
-			//*finalAction = curr;
-		}
-		else
-		{
-			if (curr.GetCout() < finalAction->GetCout())
+			std::vector<Precondition> precs = actionsAEffectuer[i].GetPreconditions();
+			size_t j;
+			for (j = 0; j < precs.size(); j++)
 			{
-				finalAction = new Action(curr);
-				//*finalAction = curr;
+				if (!precs[j].IsTrue())
+				{
+					break;
+				}
+			}
+			if (j == precs.size())
+			{
+				std::cout << "Action realisable :" << actionsAEffectuer[i].GetName() << std::endl;
+				actionsAEffectuer[i].OnActionValid();
+			}
+			else
+			{
+				std::cout << "Action invalid for :" << actionsAEffectuer[i].GetName() << std::endl;
 			}
 		}
 	}
-	if (finalAction != nullptr)
+	else
 	{
-		std::cout << "Action faite :" << finalAction->GetName() << std::endl;
-		finalAction->OnActionValid();
-		delete finalAction;
+		std::cout << "Aucune combinaisons trouvees." << std::endl;
 	}
+	//for (Action curr : Actions)
+	//{
+	//	std::vector<Precondition> precs = curr.GetPreconditions();
+	//	size_t i = 0;
+	//	for (i; i < precs.size(); i++)
+	//	{
+	//		if (!precs[i].IsTrue())
+	//		{
+	//			break;
+	//		}
+	//	}
+	//	if (i == precs.size())
+	//	{
+	//		std::cout << "Action realisable :" << curr.GetName() << std::endl;
+	//		//curr.OnActionValid();
+	//		realisablesActions.push_back(curr);
+	//		//break;
+	//	}
+	//	else 
+	//	{
+	//		std::cout << "Action invalid for :" << curr.GetName() << std::endl;
+	//	}
+	//}
 }

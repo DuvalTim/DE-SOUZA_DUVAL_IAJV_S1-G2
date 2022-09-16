@@ -1,20 +1,6 @@
 #include "GameState.h"
 
-#define UPDATE_TIME 1
-
-/// <summary>
-/// Cree les actions
-/// </summary>
-void CreateAction()
-{
-    /*
-    Action* reviser = new Action("Reviser");
-    reviser ->AddEffect(Effet::GagnerDeLaForme);
-    reviser ->AddEffect(Effet::GagnerDuGlucose);
-    reviser ->AddPrecondition(Precondition(Precondition::PreconditionList::AvoirDormis, 5, ));
-    std::cout << *reviser << std::endl;
-    delete reviser;*/
-}
+#define UPDATE_TIME 3
 
 /// <summary>
 /// Execute au demarrage
@@ -33,6 +19,11 @@ void Update(GameState& gameState)
     gameState.Run();
 }
 
+void OnApplicationLeave(GameState& gameState)
+{
+    std::cout << "End" << std::endl;
+    ~gameState;
+}
 
 /// <summary>
 /// Boucle principale, lance le start puis les update
@@ -54,10 +45,8 @@ void Run(GameState& gameState)
             //std::cout << "execution de la tache" << std::endl;
         }
     }
+    OnApplicationLeave(gameState);
 }
-
-
-
 
 int main(std::string args[]) {
     GameState gameState = GameState(5, 5, 5, 5, 5);
