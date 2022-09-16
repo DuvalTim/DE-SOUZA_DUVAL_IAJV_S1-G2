@@ -8,7 +8,7 @@ public:
 	/// <summary>
 	/// Liste des preconditions
 	/// </summary>
-	enum class PreconditionList {
+	enum PreconditionList {
 		AvoirDormis,
 		AvoirFaim,
 		AvoirDeLaNourriture,

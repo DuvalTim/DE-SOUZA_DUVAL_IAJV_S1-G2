@@ -9,7 +9,7 @@ public:
 	/// <summary>
 	/// Liste des effets
 	/// </summary>
-	enum class EffetListe {
+	enum EffetListe {
 		GagnerDeLaForme,
 		GagnerDuGlucose,
 		GagnerUnRepas,
