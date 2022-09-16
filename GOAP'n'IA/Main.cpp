@@ -1,4 +1,5 @@
 #include "GameState.h"
+#include "IA_GameState.h"
 
 #define UPDATE_TIME 1
 
@@ -60,7 +61,11 @@ void Run(GameState& gameState)
 
 
 int main(std::string args[]) {
-    GameState gameState = GameState(5, 5, 5, 5, 5);
+    /*GameState gameState = GameState(5, 5, 5, 5, 5);
     Run(gameState);
 	return 0;
+    */
+
+    IA_GameState Start;
+
 }

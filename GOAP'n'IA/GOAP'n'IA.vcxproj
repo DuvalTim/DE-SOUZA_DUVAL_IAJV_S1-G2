@@ -142,12 +142,16 @@
     <ClInclude Include="Action.h" />
     <ClInclude Include="Effet.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="IA_GameState.h" />
+    <ClInclude Include="IA_Village.h" />
     <ClInclude Include="Precondition.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Action.cpp" />
     <ClCompile Include="Effet.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="IA_GameState.cpp" />
+    <ClCompile Include="IA_Village.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Precondition.cpp" />
   </ItemGroup>
